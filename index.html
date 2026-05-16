@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>GDN Master Preview - Desktop & Mobile</title>
+    <style>
+        :root { --error: #d93025; --success: #188038; --bg: #f1f3f4; --border: #dadce0; }
+        body { font-family: 'Roboto', Arial, sans-serif; margin: 0; background: var(--bg); color: #3c4043; padding-bottom: 100px; }
+        
+        header { background: #1a73e8; color: white; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .error-toast { position: fixed; top: 80px; right: 20px; background: var(--error); color: white; padding: 15px 25px; border-radius: 4px; display: none; z-index: 1001; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-weight: bold; }
+
+        /* Container chung */
+        .preview-section { max-width: 1200px; margin: 40px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .section-header { border-bottom: 2px solid #1a73e8; margin-bottom: 20px; padding-bottom: 10px; color: #1a73e8; display: flex; justify-content: space-between; }
+
+        /* Cấu trúc bài báo Máy tính */
+        .desktop-layout { display: grid; grid-template-columns: 1fr 300px; gap: 20px; }
+        .main-col { display: flex; flex-direction: column; gap: 20px; }
+        .sidebar-col { display: flex; flex-direction: column; gap: 20px; align-items: center; }
+        
+        /* Cấu trúc bài báo Điện thoại */
+        .mobile-emulator { width: 375px; margin: 0 auto; border: 12px solid #333; border-radius: 30px; background: white; min-height: 600px; overflow-y: auto; padding: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+        
+        /* Box chứa Banner */
+        .ad-slot { background: #f8f9fa; border: 1px dashed #999; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; margin: 10px 0; }
+        .ad-slot:hover { border-color: #1a73e8; background: #eef5ff; }
+        .ad-slot input { position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
+        .ad-slot img { position: absolute; width: 100%; height: 100%; object-fit: fill; display: none; z-index: 5; }
+        .ad-slot span { font-size: 11px; color: #70757a; text-align: center; pointer-events: none; }
+
+        /* Kích thước cụ thể */
+        .sz-970-90 { width: 970px; height: 90px; }
+        .sz-728-90 { width: 728px; height: 90px; }
+        .sz-468-60 { width: 468px; height: 60px; }
+        .sz-336-280 { width: 336px; height: 280px; }
+        .sz-300-250 { width: 300px; height: 250px; }
+        .sz-300-600 { width: 300px; height: 600px; }
+        .sz-160-600 { width: 160px; height: 600px; }
+        .sz-250-250 { width: 250px; height: 250px; }
+        .sz-200-200 { width: 200px; height: 200px; }
+        /* Mobile */
+        .sz-300-200 { width: 300px; height: 200px; }
+        .sz-300-100 { width: 300px; height: 100px; }
+        .sz-300-50 { width: 300px; height: 50px; }
+
+        .article-demo h1 { font-size: 28px; margin: 0 0 10px 0; }
+        .article-demo p { line-height: 1.6; color: #5f6368; }
+    </style>
+</head>
+<body>
+
+<header>
+    <strong>GDN PREVIEW TOOL</strong> | Kích thước chuẩn & Check file < 150KB
+</header>
+
+<div id="err" class="error-toast"></div>
+
+<div class="preview-section">
+    <div class="section-header"><h2>1. GIAO DIỆN MÁY TÍNH (DESKTOP)</h2> <span>10 Kích thước</span></div>
+    
+    <center>
+        <div class="ad-slot sz-970-90"><span class="label">970 x 90</span><input type="file" onchange="v(this,970,90)"><img></div>
+        <div class="ad-slot sz-728-90"><span class="label">728 x 90</span><input type="file" onchange="v(this,728,90)"><img></div>
+    </center>
+
+    <div class="desktop-layout">
+        <div class="main-col">
+            <div class="article-demo">
+                <h1>Tiêu đề bài viết mẫu trên Desktop</h1>
+                <p>Nội dung bài viết giả lập để designer xem vị trí banner. Quảng cáo 468x60 thường nằm giữa bài viết.</p>
+                <center><div class="ad-slot sz-468-60"><span class="label">468 x 60</span><input type="file" onchange="v(this,468,60)"><img></div></center>
+                <p>Quảng cáo 336x280 thường nằm cuối nội dung bên trái hoặc chèn giữa văn bản.</p>
+                <div style="display:flex; gap:10px;">
+                    <div class="ad-slot sz-336-280"><span class="label">336 x 280</span><input type="file" onchange="v(this,336,280)"><img></div>
+                    <div class="ad-slot sz-250-250"><span class="label">250 x 250</span><input type="file" onchange="v(this,250,250)"><img></div>
+                </div>
+                <div class="ad-slot sz-200-200"><span class="label">200 x 200</span><input type="file" onchange="v(this,200,200)"><img></div>
+            </div>
+        </div>
+        <div class="sidebar-col">
+            <div class="ad-slot sz-300-600"><span class="label">300 x 600</span><input type="file" onchange="v(this,300,600)"><img></div>
+            <div class="ad-slot sz-300-250"><span class="label">300 x 250</span><input type="file" onchange="v(this,300,250)"><img></div>
+            <div style="display:flex; gap:10px;">
+                <div class="ad-slot sz-160-600"><span class="label">160 x 600</span><input type="file" onchange="v(this,160,600)"><img></div>
+                <div class="ad-slot sz-160-600"><span class="label">160 x 600</span><input type="file" onchange="v(this,160,600)"><img></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="preview-section">
+    <div class="section-header"><h2>2. GIAO DIỆN ĐIỆN THOẠI (MOBILE)</h2> <span>5 Kích thước</span></div>
+    
+    <div class="mobile-emulator">
+        <div class="ad-slot sz-300-50" style="margin: 0 auto;"><span class="label">300 x 50</span><input type="file" onchange="v(this,300,50)"><img></div>
+        <div class="article-demo">
+            <h2 style="font-size:18px;">Tin tức trên di động</h2>
+            <p style="font-size:14px;">Banner 300x100 thường nằm đầu trang di động.</p>
+            <div class="ad-slot sz-300-100" style="margin: 0 auto;"><span class="label">300 x 100</span><input type="file" onchange="v(this,300,100)"><img></div>
+            <p style="font-size:14px;">Kích thước 300x200 là kích thước lớn trên điện thoại.</p>
+            <div class="ad-slot sz-300-200" style="margin: 0 auto;"><span class="label">300 x 200</span><input type="file" onchange="v(this,300,200)"><img></div>
+            <p style="font-size:14px;">Banner vuông (250x250) và (200x200) khi hiển thị trên mobile.</p>
+            <div class="ad-slot sz-250-250" style="margin: 0 auto;"><span class="label">250 x 250</span><input type="file" onchange="v(this,250,250)"><img></div>
+            <div class="ad-slot sz-200-200" style="margin: 0 auto;"><span class="label">200 x 200</span><input type="file" onchange="v(this,200,200)"><img></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function v(el, w, h) {
+        const file = el.files[0];
+        const err = document.getElementById('err');
+        if(!file) return;
+
+        // Check dung lượng
+        if(file.size > 150 * 1024) {
+            showError("LỖI: File quá 150KB (" + (file.size/1024).toFixed(1) + "KB)");
+            el.value = ""; return;
+        }
+
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+        img.onload = function() {
+            // Check kích thước
+            if(this.width !== w || this.height !== h) {
+                showError("LỖI KÍCH THƯỚC: Yêu cầu " + w + "x" + h + "px (Ảnh của bạn: " + this.width + "x" + this.height + "px)");
+                el.value = "";
+            } else {
+                const preview = el.parentElement.querySelector('img');
+                preview.src = img.src;
+                preview.style.display = 'block';
+                el.parentElement.style.border = 'none';
+            }
+        };
+    }
+
+    function showError(m) {
+        const e = document.getElementById('err');
+        e.innerText = m; e.style.display = 'block';
+        setTimeout(() => e.style.display = 'none', 5000);
+    }
+</script>
+
+</body>
+</html>
