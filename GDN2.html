@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDN Ultimate Previewer - 20 Kích Thước Chuẩn</title>
+    <style>
+        :root { --google-blue: #1a73e8; --error: #d93025; --success: #188038; --text: #3c4043; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #f8f9fa; color: var(--text); line-height: 1.5; }
+        
+        /* Dashboard Control */
+        header { background: var(--google-blue); color: white; padding: 20px; text-align: center; position: fixed; width:100%; left: 0; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .info-bar { background: rgba(255,255,255,0.1); display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 13px; margin-top: 10px; }
+        
+        /* Giao diện Báo chí */
+        .page-wrapper { max-width: 1400px; margin: 100px auto; display: grid; grid-template-columns: 180px 1fr 320px; gap: 20px; padding: 0 20px; }
+        .main-article { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        
+        /* Banner Styles */
+        .ad-unit { background: #fff; border: 2px dashed #bdc1c6; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 20px; transition: 0.2s; }
+        .ad-unit:hover { border-color: var(--google-blue); background: #f1f8ff; }
+        .ad-unit input { position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
+        .ad-unit img { width: 100%; height: 100%; object-fit: fill; display: none; position: absolute; z-index: 5; }
+        .ad-unit .cap { font-size: 10px; color: #70757a; text-align: center; pointer-events: none; padding: 5px; }
+
+        /* Typography */
+        h1 { font-size: 36px; color: #202124; margin-bottom: 10px; }
+        .meta { color: #70757a; font-size: 14px; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        p { margin-bottom: 20px; font-size: 18px; color: #444; }
+
+        /* Toasts */
+        #toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #323232; color: white; padding: 12px 24px; border-radius: 4px; display: none; z-index: 2000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+
+        /* Kích thước cụ thể - Bảng dẫn */
+        .sz-970-250 { width: 970px; height: 250px; } .sz-970-90 { width: 970px; height: 90px; }
+        .sz-930-180 { width: 930px; height: 180px; } .sz-728-90 { width: 728px; height: 90px; }
+        .sz-980-120 { width: 980px; height: 120px; } .sz-468-60 { width: 468px; height: 60px; }
+        
+        /* Hình chữ nhật & Vuông */
+        .sz-580-400 { width: 580px; height: 400px; } .sz-336-280 { width: 336px; height: 280px; }
+        .sz-300-250 { width: 300px; height: 250px; } .sz-250-250 { width: 250px; height: 250px; }
+        .sz-200-200 { width: 200px; height: 200px; } .sz-240-400 { width: 240px; height: 400px; }
+        .sz-250-360 { width: 250px; height: 360px; }
+
+        /* Nhà chọc trời */
+        .sz-300-1050 { width: 300px; height: 1050px; } .sz-300-600 { width: 300px; height: 600px; }
+        .sz-160-600 { width: 160px; height: 600px; } .sz-120-600 { width: 120px; height: 600px; }
+
+        /* Di động */
+        .sz-320-100 { width: 320px; height: 100px; } .sz-320-50 { width: 320px; height: 50px; }
+        .sz-300-100 { width: 300px; height: 100px; } .sz-300-50 { width: 300px; height: 50px; }
+        .sz-300-200 { width: 300px; height: 200px; }
+
+        .mobile-view { border: 10px solid #202124; border-radius: 20px; padding: 10px; background: #fff; width: 340px; margin: 20px auto; }
+    </style>
+</head>
+<body>
+
+<header>
+    <strong>GDN PREVIEW TOOL</strong>
+    <div class="info-bar">Chấp nhận: JPG, PNG | Tối đa: 150KB | Kích thước: Khớp 100%</div>
+</header>
+
+<div id="toast"></div>
+
+<div class="page-wrapper">
+    <div class="left-sidebar">
+        <div class="ad-unit sz-160-600"><span class="cap">160x600<br>Rộng cao</span><input type="file" onchange="check(this,160,600)"><img></div>
+        <div class="ad-unit sz-120-600"><span class="cap">120x600<br>Chọc trời</span><input type="file" onchange="check(this,120,600)"><img></div>
+        <div class="ad-unit sz-240-400"><span class="cap">240x400<br>CN Dọc</span><input type="file" onchange="check(this,240,400)"><img></div>
+    </div>
+
+    <div class="main-article" style="margin-left:60px;">
+        <center>
+            <div class="ad-unit sz-970-250"><span class="cap">970x250 Bảng thông cáo</span><input type="file" onchange="check(this,970,250)"><img></div>
+            <div class="ad-unit sz-970-90"><span class="cap">970x90 Dài lớn</span><input type="file" onchange="check(this,970,90)"><img></div>
+            <div class="ad-unit sz-930-180"><span class="cap">930x180 Biểu ngữ đầu</span><input type="file" onchange="check(this,930,180)"><img></div>
+        </center>
+
+        <div class="news-body">
+            <div class="meta">Kinh tế số • Cập nhật lần cuối: 2026</div>
+            <h1>Báo cáo thị trường hiển thị quảng cáo</h1>
+            <p>Quảng cáo 728x90 thường là vị trí "vàng" nằm ngay dưới tiêu đề hoặc giữa các đoạn nội dung chính trên giao diện máy tính.</p>
+            
+            <center>
+                <div class="ad-unit sz-728-90"><span class="cap">728x90 Bảng dẫn</span><input type="file" onchange="check(this,728,90)"><img></div>
+                <div class="ad-unit sz-980-120"><span class="cap">980x120 Toàn cảnh</span><input type="file" onchange="check(this,980,120)"><img></div>
+            </center>
+
+            <p>Dưới đây là các định dạng Netboard (580x400) và Hình chữ nhật lớn (336x280) giúp tăng tỷ lệ nhấp chuột (CTR) cao nhất.</p>
+            
+            <div style="display:flex; flex-wrap: wrap; gap:15px; justify-content: center;">
+                <div class="ad-unit sz-580-400"><span class="cap">580x400 Netboard</span><input type="file" onchange="check(this,580,400)"><img></div>
+                <div class="ad-unit sz-336-280"><span class="cap">336x280 CN Lớn</span><input type="file" onchange="check(this,336,280)"><img></div>
+                <div class="ad-unit sz-468-60"><span class="cap">468x60 Biểu ngữ</span><input type="file" onchange="check(this,468,60)"><img></div>
+            </div>
+
+            <hr>
+            <h3>Giao diện di động giả lập</h3>
+            <div class="mobile-view">
+                <div class="ad-unit sz-320-100"><span class="cap">320x100</span><input type="file" onchange="check(this,320,100)"><img></div>
+                <p style="font-size:14px">Tin nóng trong ngày...</p>
+                <div class="ad-unit sz-300-200"><span class="cap">300x200</span><input type="file" onchange="check(this,300,200)"><img></div>
+                <div class="ad-unit sz-300-100"><span class="cap">300x100</span><input type="file" onchange="check(this,300,100)"><img></div>
+                <div class="ad-unit sz-320-50"><span class="cap">320x50</span><input type="file" onchange="check(this,320,50)"><img></div>
+                <div class="ad-unit sz-300-50"><span class="cap">300x50</span><input type="file" onchange="check(this,300,50)"><img></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-sidebar">
+        <div class="ad-unit sz-300-1050"><span class="cap">300x1050 Thẳng đứng</span><input type="file" onchange="check(this,300,1050)"><img></div>
+        <div class="ad-unit sz-300-600"><span class="cap">300x600 Nửa trang</span><input type="file" onchange="check(this,300,600)"><img></div>
+        <div class="ad-unit sz-300-250"><span class="cap">300x250 CN Trong dòng</span><input type="file" onchange="check(this,300,250)"><img></div>
+        <div class="ad-unit sz-250-360"><span class="cap">250x360 Màn hình rộng x3</span><input type="file" onchange="check(this,250,360)"><img></div>
+        <div class="ad-unit sz-250-250"><span class="cap">250x250 Vuông</span><input type="file" onchange="check(this,250,250)"><img></div>
+        <div class="ad-unit sz-200-200"><span class="cap">200x200 Vuông nhỏ</span><input type="file" onchange="check(this,200,200)"><img></div>
+    </div>
+</div>
+
+<script>
+    function toast(msg, color) {
+        const t = document.getElementById('toast');
+        t.innerText = msg;
+        t.style.background = color || '#323232';
+        t.style.display = 'block';
+        setTimeout(() => t.style.display = 'none', 4000);
+    }
+
+    function check(el, w, h) {
+        const file = el.files[0];
+        if(!file) return;
+
+        // Check 150KB limit
+        if(file.size > 150 * 1024) {
+            toast(`❌ LỖI: File nặng ${(file.size/1024).toFixed(1)}KB (Vượt 150KB)`, '#d93025');
+            el.value = ""; return;
+        }
+
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+        img.onload = function() {
+            if(this.width !== w || this.height !== h) {
+                toast(`❌ SAI SIZE: Ảnh là ${this.width}x${this.height}. Cần đúng ${w}x${h}px`, '#d93025');
+                el.value = "";
+            } else {
+                toast(`✅ Hợp lệ!`, '#188038');
+                const p = el.parentElement.querySelector('img');
+                p.src = img.src;
+                p.style.display = 'block';
+                el.parentElement.style.border = 'none';
+            }
+        };
+    }
+</script>
+
+</body>
+</html>
